@@ -1,9 +1,14 @@
-export const matchString = (taskStr,inputStr)=>{
+export const matchString = (taskStr,inputStr,index)=>{
     let Inputlength = inputStr.length
     console.log(taskStr[Inputlength-1])
+    let check = true
     console.log(inputStr)
     if(taskStr[Inputlength-1]===inputStr[Inputlength-1]){
-        return true
+        check = true
+        index++
+        console.log(index)
+        return {index,check}
     }
-    return false
+    check = false
+    return {index,check}
 }

@@ -12,7 +12,7 @@ export const Keyinput = ({ handleUserInput,input,check }) => {
     },[check])
   return (
     <div className="input_box">
-      <input ref={Inputref} spellCheck="false" type="text" value={input} onChange={handleUserInput} />
+      <input ref={Inputref} spellCheck="false" type="text" value={input} onKeyUp={handleUserInput} />
     </div>
   );
 };
