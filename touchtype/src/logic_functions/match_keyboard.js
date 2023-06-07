@@ -1,10 +1,12 @@
 export const matchKeyboard = (parent,givenStr,index=0)=>{
-    console.log(index)
-    console.log(givenStr)
+    // console.log(index)
+    // console.log(givenStr)
     for(let i=0; i<parent.length; i++){
         for(let j=0; j<parent[i].children.length; j++){
-            if(parent[i].children[j].id===givenStr[index>0 ? index-1:index]?.toUpperCase()){
+            if(parent[i].children[j].id===givenStr[index]?.toUpperCase()){
                 return parent[i].children[j].id
+            }else if(givenStr[index]===" "){
+                return "key_space"
             }
         }
     }

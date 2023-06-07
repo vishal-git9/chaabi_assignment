@@ -10,10 +10,12 @@ import { matchString } from "./logic_functions/match_string";
 function App() {
   // app states
   const [randString, setRandomString] = useState("");
-  const [words, setWords] = useState(1);
-  const [length, setLength] = useState(1);
+  const [words, setWords] = useState(4);
+  const [length, setLength] = useState(4);
   const [check, setCheck] = useState(true);
   const [Strindex, setStrIndex] = useState(0);
+
+  
   // calling the handleuserInput function
 
   const handleUserInput = (e) => {
@@ -31,6 +33,11 @@ function App() {
 
   // function for handling string generation
   const handleStringGen = (e) => {
+    if(e.target.value === randString){
+      e.target.value = ""
+      console.log("finisded")
+      return
+    }
     if (e.target.id === "words") {
       setWords(Number(e.target.value));
       let { val } = randomString(words, length);

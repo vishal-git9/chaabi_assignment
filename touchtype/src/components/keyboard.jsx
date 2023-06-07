@@ -8,12 +8,17 @@ export const Keyboard = ({index=0,taskStr}) => {
     const fourth_row_ref = useRef(null)
     const fifth_row_ref = useRef(null)
     useEffect(()=>{
-        let val = matchKeyboard([first_row_ref.current,second_row_ref.current,third_row_ref.current,fourth_row_ref.current,fifth_row_ref.current],taskStr,index)
-        if(val){
-          document.getElementById(val).style.transform = "scale(1.5)"
-          document.getElementById(val).style.border = "2px solid #f0f0f0"
+        let CurrentKey_val = matchKeyboard([first_row_ref.current,second_row_ref.current,third_row_ref.current,fourth_row_ref.current,fifth_row_ref.current],taskStr,index)
+        if(CurrentKey_val){
+          document.getElementById(CurrentKey_val).style.transform = "scale(1.3)"
+          document.getElementById(CurrentKey_val).style.border = "2px solid #fff"
         }
-        console.log(val)
+
+        let Prevkey_val = matchKeyboard([first_row_ref.current,second_row_ref.current,third_row_ref.current,fourth_row_ref.current,fifth_row_ref.current],taskStr,index-1)
+        if(Prevkey_val){
+          document.getElementById(Prevkey_val).style.transform = "scale(1)"
+          document.getElementById(Prevkey_val).style.border = "none"
+        }
     },[index,taskStr])
   return (
     <div className="keyboard">

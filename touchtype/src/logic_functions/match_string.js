@@ -3,7 +3,17 @@ export const matchString = (taskStr,inputStr,index)=>{
     console.log(taskStr[Inputlength-1])
     let check = true
     console.log(inputStr)
-    if(taskStr[Inputlength-1]===inputStr[Inputlength-1]){
+    // gve
+    // gbe
+    let isMatched = true
+    for (let i = 0; i < inputStr.length; i++) {
+        if(taskStr[i]!==inputStr[i]){
+            isMatched = false
+            break;
+        }
+        
+    }
+    if(isMatched){
         check = true
         index++
         console.log(index)
