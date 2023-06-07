@@ -4,5 +4,13 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin-top: 20px;
+}
+
+.result_info{
+  display: flex;
+  width: 65%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

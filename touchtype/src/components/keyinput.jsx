@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import "../styles/dropdown.css";
-export const Keyinput = ({ handleUserInput,input,check }) => {
+export const Keyinput = ({ handleUserInput,check }) => {
     const Inputref = useRef(null)
 
     useEffect(()=>{
@@ -12,7 +12,7 @@ export const Keyinput = ({ handleUserInput,input,check }) => {
     },[check])
   return (
     <div className="input_box">
-      <input ref={Inputref} spellCheck="false" type="text" value={input} onKeyUp={handleUserInput} />
+      <input ref={Inputref} spellCheck="false" type="text" onKeyUp={handleUserInput} />
     </div>
   );
 };

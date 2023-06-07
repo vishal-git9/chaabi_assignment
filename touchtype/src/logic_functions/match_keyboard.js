@@ -1,12 +1,14 @@
 export const matchKeyboard = (parent,givenStr,index=0)=>{
-    // console.log(index)
-    // console.log(givenStr)
     for(let i=0; i<parent.length; i++){
         for(let j=0; j<parent[i].children.length; j++){
+            document.getElementById(parent[i].children[j].id).style.transform = "scale(1)"
+            document.getElementById(parent[i].children[j].id).style.border = "none"
             if(parent[i].children[j].id===givenStr[index]?.toUpperCase()){
-                return parent[i].children[j].id
+                document.getElementById(parent[i].children[j].id).style.transform = "scale(1.3)"
+                document.getElementById(parent[i].children[j].id).style.border = "2px solid #fff"      
             }else if(givenStr[index]===" "){
-                return "key_space"
+                document.getElementById("key_space").style.transform = "scale(1.3)"
+                document.getElementById("key_space").style.border = "2px solid #fff"      
             }
         }
     }
