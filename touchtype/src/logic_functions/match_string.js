@@ -1,8 +1,5 @@
 export const matchString = (taskStr,inputStr,index,correctKeys)=>{
-    let Inputlength = inputStr.length
-    console.log(taskStr[Inputlength-1])
     let check = true
-    console.log(inputStr)
     // gve
     // gbe
     let isMatched = true
@@ -17,7 +14,6 @@ export const matchString = (taskStr,inputStr,index,correctKeys)=>{
         check = true
         correctKeys++
         index++
-        console.log(index)
         return {index,check,correctKeys}
     }
     check = false

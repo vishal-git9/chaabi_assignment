@@ -9,6 +9,8 @@ import { matchString } from "./logic_functions/match_string";
 import Navbar from "./components/navbar";
 import Timer from "./components/timer";
 import { useTimer } from "./hooks/useTimer";
+import { handleUserResult } from "./redux/result/result.actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   // app states
@@ -27,10 +29,8 @@ function App() {
   const [seconds, resetTimer, pauseTimer, resumeTimer] = useTimer(0)
 
   // intialising the accuracy and words per minute in a window of 5 minutes
-
-  const [accuracy,setAccuracy] = useState(0)
-  const [wordsMinute,setWordsMinute] = useState(0)
-
+  const dispatch = useDispatch()
+  const {Accuracy,WordMinute} = useSelector((store)=>store)
 
 
   // calling the handleuserInput function that checks and maintains every user input action  
@@ -65,9 +65,12 @@ function App() {
   const handleComplete = ()=>{
     const Accuracy = Math.floor((correct/ totalKeys_pressed) * 100)
     const wordMinute = Math.floor((totalKeys_pressed/5)/(seconds / 60))
-    setAccuracy(Accuracy)
-    setWordsMinute(wordMinute)
 
+    const data = {
+      Accuracy,
+      WordMinute:wordMinute
+    }
+    handleUserResult(data,dispatch)
     // checking and calling the final completion function when the user has completed 5 minute practice
     if(seconds>=300){
       handlePracticeWindow()
@@ -97,8 +100,11 @@ function App() {
 
   const handlePracticeWindow = ()=>{
     resetTimer()
-    setAccuracy(0)
-    setWordsMinute(0)
+    const data = {
+      Accuracy:0,
+      WordMinute:0
+    }
+    handleUserResult(data,dispatch)
   }
 
   // use effect
@@ -115,11 +121,11 @@ function App() {
       <Keyinput handleUserInput={handleUserInput} check={check}/>
       <Keyboard index={Strindex} taskStr={randString} />
       <div className="result_info">
-        <div>
-          WPM:<span>0</span>
+        <div className="word_info">
+          WPM:<span>{WordMinute}</span>
         </div>
-        <div>
-          Accuracy:<span>0</span>
+        <div className="accuracy_info">
+          Accuracy:<span>{Accuracy}%</span>
         </div>
       </div>
     </div>
