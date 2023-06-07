@@ -37,9 +37,10 @@ function App() {
   // calling the handleuserInput function that checks and maintains every user input action
 
   const handleUserInput = (e) => {
+    if(e.key==="Enter") return;
+    if(e.key==="Shift") return;
     resumeTimer();
     playTypefx();
-    console.log("index",Strindex)
     if (Strindex + 1 === randString.length) {
       e.target.value = "";
       pauseTimer();
