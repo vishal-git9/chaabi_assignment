@@ -9,84 +9,90 @@ import { matchString } from "./logic_functions/match_string";
 import Navbar from "./components/navbar";
 import Timer from "./components/timer";
 import { useTimer } from "./hooks/useTimer";
-import {useSound} from "use-sound"
+import { useSound } from "use-sound";
 import { handleUserResult } from "./redux/result/result.actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   // app states
-  const [randString, setRandomString] = useState("");  // intialize the random generate strings for task
+  const [randString, setRandomString] = useState(""); // intialize the random generate strings for task
   const [words, setWords] = useState(4); // intialise the no of words to be shown in a string
   const [length, setLength] = useState(4); // intialize the no of strings to be there in task
   const [check, setCheck] = useState(true); // intialize the checking the state for correct words
   const [Strindex, setStrIndex] = useState(0); // intialize the strIndex to know the index of the last correct word
 
-  // creting the sound 
+  const [playTypefx] = useSound("./Keyboard_Button.mp3"); // creating the typing sound for better experience
 
-  const [playTypefx] = useSound("./Keyboard_Button.mp3");
+  const [correct, setCorrect] = useState(0); // intialize the correct to check the correct typed keyword
+  const [totalKeys_pressed, settotalKeys_pressed] = useState(0); // intialize the totalkeys pressed by user in whole window of 5 minutes
 
-  const [correct,setCorrect] = useState(0) // intialize the correct to check the correct typed keyword
-  const [totalKeys_pressed,settotalKeys_pressed] = useState(0) // intialize the totalkeys pressed by user in whole window of 5 minutes
+  // using the custom useTimer hook for timer
 
-  // using the custom useTimer hook for timer 
-
-  const [seconds, resetTimer, pauseTimer, resumeTimer] = useTimer(0)
+  const [seconds, resetTimer, pauseTimer, resumeTimer] = useTimer(0);
 
   // intialising the accuracy and words per minute in a window of 5 minutes
-  const dispatch = useDispatch()
-  const {Accuracy,WordMinute} = useSelector((store)=>store)
+  const dispatch = useDispatch();
+  const { Accuracy, WordMinute } = useSelector((store) => store);
 
-
-  // calling the handleuserInput function that checks and maintains every user input action  
+  // calling the handleuserInput function that checks and maintains every user input action
 
   const handleUserInput = (e) => {
-    resumeTimer()
-    playTypefx()
-    if(Strindex+1===randString.length){
-      e.target.value = ""
-      pauseTimer()
+    resumeTimer();
+    playTypefx();
+    console.log("index",Strindex)
+    if (Strindex + 1 === randString.length) {
+      e.target.value = "";
+      pauseTimer();
       setStrIndex(0);
       setCheck(true);
       let { val } = randomString(words, length);
-      setRandomString(val); 
-      handleComplete()
+      setRandomString(val);
+      handleComplete();
       return;
     }
-    if(e.key==="Backspace"){
-      let { check } = matchString(randString, e.target.value, Strindex,correct);
+    if (e.key === "Backspace") {
+      let { check } = matchString(
+        randString,
+        e.target.value,
+        Strindex,
+        correct
+      );
       setCheck(check);
-    }else{
-      let { check, index,correctKeys } = matchString(randString, e.target.value, Strindex,correct);
+    } else {
+      let { check, index, correctKeys } = matchString(
+        randString,
+        e.target.value,
+        Strindex,
+        correct
+      );
       setCheck(check);
-      setCorrect(correctKeys)
+      setCorrect(correctKeys);
       setStrIndex(index);
     }
-    settotalKeys_pressed((prev)=>prev+1)
+    settotalKeys_pressed((prev) => prev + 1);
   };
 
-
-
   // handleComplete function runs on a single window of completion
-  const handleComplete = ()=>{
-    const Accuracy = Math.floor((correct/ totalKeys_pressed) * 100)
-    const wordMinute = Math.floor((totalKeys_pressed/5)/(seconds / 60))
+  const handleComplete = () => {
+    const Accuracy = Math.floor((correct / totalKeys_pressed) * 100);
+    const wordMinute = Math.floor(totalKeys_pressed / 5 / (seconds / 60));
 
     const data = {
       Accuracy,
-      WordMinute:wordMinute
-    }
-    handleUserResult(data,dispatch)
+      WordMinute: wordMinute,
+    };
+    handleUserResult(data, dispatch);
     // checking and calling the final completion function when the user has completed 5 minute practice
-    if(seconds>=300){
-      handlePracticeWindow()
+    if (seconds >= 300) {
+      handlePracticeWindow();
     }
-  }
+  };
   // function for handling string generation using select tag
   const handleStringGen = (e) => {
-    if(e.target.value === randString){
-      e.target.value = ""
-      console.log("finisded")
-      return
+    if (e.target.value === randString) {
+      e.target.value = "";
+      console.log("finisded");
+      return;
     }
     if (e.target.id === "words") {
       setWords(Number(e.target.value));
@@ -99,18 +105,16 @@ function App() {
     }
   };
 
-
-
   // function for handling handlePracticeWindow after completion of 5 minute window practice
 
-  const handlePracticeWindow = ()=>{
-    resetTimer()
+  const handlePracticeWindow = () => {
+    resetTimer();
     const data = {
-      Accuracy:0,
-      WordMinute:0
-    }
-    handleUserResult(data,dispatch)
-  }
+      Accuracy: 0,
+      WordMinute: 0,
+    };
+    handleUserResult(data, dispatch);
+  };
 
   // use effect
   useEffect(() => {
@@ -119,11 +123,11 @@ function App() {
   }, [length, words]);
   return (
     <div className="App">
-      <Navbar/>
-      <Timer seconds={seconds}/>
+      <Navbar />
+      <Timer seconds={seconds} />
       <Options handleStringGen={handleStringGen} />
       <Taskinput string={randString} />
-      <Keyinput handleUserInput={handleUserInput} check={check}/>
+      <Keyinput handleUserInput={handleUserInput} check={check} />
       <Keyboard index={Strindex} taskStr={randString} />
       <div className="result_info">
         <div className="word_info">

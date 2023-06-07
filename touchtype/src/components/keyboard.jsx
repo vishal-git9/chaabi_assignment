@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react"
 import "../styles/keyboard.css"
 import { matchKeyboard } from "../logic_functions/match_keyboard"
 export const Keyboard = ({index=0,taskStr}) => {
-    const first_row_ref = useRef(null)
-    const second_row_ref = useRef(null)
-    const third_row_ref = useRef(null)
-    const fourth_row_ref = useRef(null)
-    const fifth_row_ref = useRef(null)
+    const first_row_ref = useRef(null) // first keyboard row ref
+    const second_row_ref = useRef(null) // seconf keyboard row ref
+    const third_row_ref = useRef(null) // third keyboard row ref
+    const fourth_row_ref = useRef(null) // fourth keyboard row ref
+    const fifth_row_ref = useRef(null) // fifth keyboard row ref
     useEffect(()=>{
       matchKeyboard([first_row_ref.current,second_row_ref.current,third_row_ref.current,fourth_row_ref.current,fifth_row_ref.current],taskStr,index)
     },[index,taskStr])

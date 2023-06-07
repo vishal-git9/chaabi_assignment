@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 30px;
   padding-bottom: 10px;
+  color: white;
 }
 
 .result_info{

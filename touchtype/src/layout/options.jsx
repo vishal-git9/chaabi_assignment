@@ -1,4 +1,4 @@
-import { Dropdown } from "../components/dropdown";
+import { Dropdown } from "../components/dropdown"; //dropdown to select required words and length for practice
 
 export const Options = ({handleStringGen}) => {
   return (

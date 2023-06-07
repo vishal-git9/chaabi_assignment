@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import "../styles/dropdown.css";
 import useSound from "use-sound";
 export const Keyinput = ({ handleUserInput,check }) => {
-    const Inputref = useRef(null)
-    const [playWronfx] = useSound("./wrong.wav")
+    const Inputref = useRef(null) // ref for input to modify properties
+    const [playWronfx] = useSound("./wrong.wav") // sound for wrong key
     useEffect(()=>{
         if(!check){
           playWronfx()
@@ -14,7 +14,7 @@ export const Keyinput = ({ handleUserInput,check }) => {
     },[check,playWronfx])
   return (
     <div className="input_box">
-      <input ref={Inputref} spellCheck="false" type="text" onKeyUp={handleUserInput} />
+      <input ref={Inputref} spellCheck="false" type="text" onKeyUp={handleUserInput} placeholder="Type here" />
     </div>
   );
 };
