@@ -9,6 +9,7 @@ import { matchString } from "./logic_functions/match_string";
 import Navbar from "./components/navbar";
 import Timer from "./components/timer";
 import { useTimer } from "./hooks/useTimer";
+import {useSound} from "use-sound"
 import { handleUserResult } from "./redux/result/result.actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +21,9 @@ function App() {
   const [check, setCheck] = useState(true); // intialize the checking the state for correct words
   const [Strindex, setStrIndex] = useState(0); // intialize the strIndex to know the index of the last correct word
 
+  // creting the sound 
+
+  const [playTypefx] = useSound("./Keyboard_Button.mp3");
 
   const [correct,setCorrect] = useState(0) // intialize the correct to check the correct typed keyword
   const [totalKeys_pressed,settotalKeys_pressed] = useState(0) // intialize the totalkeys pressed by user in whole window of 5 minutes
@@ -37,6 +41,7 @@ function App() {
 
   const handleUserInput = (e) => {
     resumeTimer()
+    playTypefx()
     if(Strindex+1===randString.length){
       e.target.value = ""
       pauseTimer()
