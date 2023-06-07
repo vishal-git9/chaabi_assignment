@@ -1,0 +1,117 @@
+.keyboard {
+    display: grid;
+    width: 65%;
+    margin: auto;
+    grid-gap: 5px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .row {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .key {
+    flex: 1;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 5px;
+  }
+  
+  /* Additional styling */
+  .key:hover {
+    background-color: #d4d4d4;
+  }
+  
+  .key:active {
+    background-color: #bfbfbf;
+  }
+  
+  .backspace,
+  .tab,
+  .capslock,
+  .enter,
+  .shift,
+  .ctrl,
+  .alt,
+  .backtick,
+  .space {
+    grid-column: span 2;
+    flex-grow: 3;
+    background-color: #d4d4d4;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .green {
+    background-color: #78e2aa;
+  }
+  .blue {
+    background-color: #63e3ff;
+  }
+  .pink {
+    background-color: #f69ec4;
+  }
+  .orange {
+    background-color: #ffc07e;
+  }
+  .yellow {
+    background-color: #ffef7e;
+  }
+  
+  .ctrl,
+  .alt,
+  .space {
+    text-align: center;
+  }
+  
+  .shift {
+    grid-column: span 2;
+  }
+  
+  /* Special key styles */
+  .capslock,
+  .shift,
+  .ctrl,
+  .alt {
+    background-color: #d4d4d4;
+    font-weight: bold;
+  }
+  
+  .space {
+    text-align: center;
+  }
+  
+  /* Styling for specific keys */
+  .row:nth-child(1) .key:nth-child(1),
+  .row:nth-child(2) .key:nth-child(1),
+  .row:nth-child(2) .key:nth-child(14),
+  .row:nth-child(3) .key:nth-child(1),
+  .row:nth-child(4) .key:nth-child(1),
+  .row:nth-child(4) .key:nth-child(14) {
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .row:nth-child(1) .key:nth-child(14),
+  .row:nth-child(3) .key:nth-child(12),
+  .row:nth-child(3) .key:nth-child(13),
+  .row:nth-child(4) .key:nth-child(11),
+  .row:nth-child(4) .key:nth-child(12),
+  .row:nth-child(4) .key:nth-child(13),
+  .row:nth-child(4) .key:nth-child(14) {
+    border-radius: 0 5px 5px 0;
+  }
+  
+  .row:nth-child(5) .key:nth-child(3),
+  .row:nth-child(5) .key:nth-child(4),
+  .row:nth-child(5) .key:nth-child(5),
+  .row:nth-child(5) .key:nth-child(6),
+  .row:nth-child(5) .key:nth-child(7),
+  .row:nth-child(5) .key:nth-child(8),
+  .row:nth-child(5) .key:nth-child(9),
+  .row:nth-child(5) .key:nth-child(10) {
+    border-radius: 0;
+  }
