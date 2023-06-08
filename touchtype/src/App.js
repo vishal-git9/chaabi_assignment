@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Keyboard } from "./components/keyboard";
 import { Options } from "./layout/options";
 import "./styles/App.css";
-import { randomString } from "./logic_functions/stringGen";
+import generateSentence, { randomString } from "./logic_functions/stringGen";
 import { Taskinput } from "./layout/taskInput";
 import { Keyinput } from "./components/keyinput";
 import { matchString } from "./logic_functions/match_string";
@@ -12,6 +12,7 @@ import { useTimer } from "./hooks/useTimer";
 import { useSound } from "use-sound";
 import { handleUserResult } from "./redux/result/result.actions";
 import { useDispatch, useSelector } from "react-redux";
+import { ChoiceOptions } from "./layout/choiceOption";
 
 function App() {
   // app states
@@ -20,6 +21,7 @@ function App() {
   const [length, setLength] = useState(4); // intialize the no of strings to be there in task
   const [check, setCheck] = useState(true); // intialize the checking the state for correct words
   const [Strindex, setStrIndex] = useState(0); // intialize the strIndex to know the index of the last correct word
+  const [choice,setChoice] = useState("Sentence") //intialize to switch beetween string and sentence
 
   const [playTypefx] = useSound("./Keyboard_Button.mp3"); // creating the typing sound for better experience
 
@@ -27,7 +29,6 @@ function App() {
   const [totalKeys_pressed, settotalKeys_pressed] = useState(0); // intialize the totalkeys pressed by user in whole window of 5 minutes
 
   // using the custom useTimer hook for timer
-
   const [seconds, resetTimer, pauseTimer, resumeTimer] = useTimer(0);
 
   // intialising the accuracy and words per minute in a window of 5 minutes
@@ -39,6 +40,7 @@ function App() {
   const handleUserInput = (e) => {
     if(e.key==="Enter") return;
     if(e.key==="Shift") return;
+    if(e.key==="CapsLock") return;
     resumeTimer();
     playTypefx();
     if (Strindex + 1 === randString.length) {
@@ -46,8 +48,13 @@ function App() {
       pauseTimer();
       setStrIndex(0);
       setCheck(true);
-      let { val } = randomString(words, length);
-      setRandomString(val);
+      if(choice==="Sentence"){
+        const {sentence} = generateSentence()
+        setRandomString(sentence);
+      }else{
+        let { val } = randomString(words, length);
+        setRandomString(val);
+      }
       handleComplete();
       return;
     }
@@ -106,6 +113,11 @@ function App() {
     }
   };
 
+
+  const handleChoice = (e)=>{
+    setChoice(e.target.value)
+  }
+
   // function for handling handlePracticeWindow after completion of 5 minute window practice
 
   const handlePracticeWindow = () => {
@@ -117,18 +129,28 @@ function App() {
     handleUserResult(data, dispatch);
     settotalKeys_pressed(0)
     setCorrect(0)
+    setRandomString("")
+    setChoice("Sentence")
   };
 
   // use effect
   useEffect(() => {
-    let { val } = randomString(words, length);
-    setRandomString(val);
-  }, [length, words]);
+    if(choice==="Sentence"){
+      const {sentence} = generateSentence()
+      setRandomString(sentence);
+    }else{
+      let { val } = randomString(words, length);
+      setRandomString(val);
+    }
+  }, [length, words,choice]);
   return (
     <div className="App">
       <Navbar />
       <Timer seconds={seconds} />
-      <Options handleStringGen={handleStringGen} />
+      <ChoiceOptions handleChoice={handleChoice}/>
+      {
+        choice === "Letters" && <Options handleStringGen={handleStringGen} />
+      }
       <Taskinput string={randString} />
       <Keyinput handleUserInput={handleUserInput} check={check} />
       <Keyboard index={Strindex} taskStr={randString} />
