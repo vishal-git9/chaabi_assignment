@@ -7,7 +7,7 @@ export const Keyinput = ({ handleUserInput,check }) => {
     useEffect(()=>{
         if(!check){
           playWronfx()
-            Inputref.current.style.border = "2px solid red"
+            Inputref.current.style.border = "5px solid red"
         }else{
             Inputref.current.style.border = "2px solid #f0f0f0"
         }

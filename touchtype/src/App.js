@@ -115,6 +115,8 @@ function App() {
       WordMinute: 0,
     };
     handleUserResult(data, dispatch);
+    settotalKeys_pressed(0)
+    setCorrect(0)
   };
 
   // use effect
