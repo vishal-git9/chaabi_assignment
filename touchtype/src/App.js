@@ -43,6 +43,8 @@ function App() {
     if(e.key==="CapsLock") return;
     resumeTimer();
     playTypefx();
+    console.log(Strindex,"index")
+    console.log(randString.length,"length")
     if (Strindex + 1 === randString.length) {
       e.target.value = "";
       pauseTimer();

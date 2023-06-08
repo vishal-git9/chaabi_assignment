@@ -8,12 +8,11 @@ export const matchString = (taskStr,inputStr,index,correctKeys)=>{
             isMatched = false
             break;
         }
-        
     }
     if(isMatched){
-        check = true
-        correctKeys++
-        index++
+        check = true            // managing the check state 
+        correctKeys++           //increasing the correct user keys
+        index++                 //increasing the task string index after matching with the input string
         return {index,check,correctKeys}
     }
     check = false
